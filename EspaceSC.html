@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Espace Service Client</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            min-width: 800px;
+            min-height: 600px;
+        }
+
+        nav {
+            width: 250px;
+            background-color: #008100;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 30px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+        }
+
+        nav .logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        nav .logos img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            margin: 10px 0;
+            font-size: 18px;
+            text-align: center;
+            width: 100%;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        main {
+            margin-left: 250px;
+            padding: 20px;
+            width: calc(100% - 250px);
+            box-sizing: border-box;
+        }
+
+        /* Styles pour le carrousel */
+        .carousel {
+            width: 100%;
+            max-width: 100%;
+            height: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+        }
+
+        .carousel-images img {
+            flex-shrink: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .carousel-text h1 {
+            font-size: 48px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .form-group label {
+            flex: 1;
+            min-width: 120px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            flex: 2;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #007bff;
+            background-color: #ffffff;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+         /* Section À propos */
+         .about-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-section h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .about-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .about-info div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .about-info label {
+            font-weight: bold;
+            color: #333;
+            width: 150px;
+        }
+
+        .about-info span {
+            color: #555;
+            word-break: break-word;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logos">
+            <img src="images/logo-ispm.jpg" alt="Logo 1">
+            <img src="images/auximad.jpg" alt="Logo 2">
+        </div>
+        <a href="#" data-section="accueil">Accueil</a>
+        <a href="#" data-section="services">Services</a>
+        <a href="#" data-section="a-propos">À propos</a>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main>
+        <!-- Section Accueil -->
+        <div class="section active" id="accueil">
+            <div class="carousel">
+                <!-- Texte superposé -->
+                <div class="carousel-text">
+                    <h1>Bienvenue sur notre site</h1>
+                    <p>Découvrez nos services et notre expertise.</p>
+                </div>
+                <!-- Carrousel d'images -->
+                <div class="carousel-images">
+                    <img src="images/customer-satisfy.jpg" alt="Image 1">
+                    <img src="images/delivery-ok.jpg" alt="Image 2">
+                    <img src="images/ships.jpg" alt="Image 3">
+                    <img src="images/truck.jpg" alt="Image 4">
+                </div>
+                <button class="carousel-button prev">⟨</button>
+                <button class="carousel-button next">⟩</button>
+                <div class="carousel-indicators">
+                    <button class="indicator"></button>
+                    <button class="indicator"></button>
+                    <button class="indicator"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Services -->
+        <div class="section" id="services">
+            <div class="form-container">
+                <h2>Formulaire de Commande</h2>
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="nom">Nom :</label>
+                        <input type="text" id="nom" name="nom" placeholder="Entrez votre nom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prenom">Prénom :</label>
+                        <input type="text" id="prenom" name="prenom" placeholder="Entrez votre prénom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adresse">Adresse :</label>
+                        <textarea id="adresse" name="adresse" rows="3" placeholder="Entrez votre adresse complète" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone">Téléphone :</label>
+                        <input type="tel" id="telephone" name="telephone" placeholder="Entrez votre numéro de téléphone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email :</label>
+                        <input type="email" id="email" name="email" placeholder="Entrez votre email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="objet">Objet :</label>
+                        <input type="text" id="objet" name="objet" placeholder="Entrez l'objet de la commande" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transport">Mode de Transport :</label>
+                        <select id="transport" name="transport" required>
+                            <option value="aerien">Aérien</option>
+                            <option value="maritime">Maritime</option>
+                            <option value="terrestre">Terrestre</option>
+                        </select>
+                    </div>
+                    <button type="button" id="submitButton">Commander</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Section À propos -->
+        <div class="section" id="a-propos">
+            <h2>À propos de nous</h2>
+            <p>Bienvenue sur notre site. Nous sommes experts en logistique.</p>
+             
+        
+            <div class="about-section">
+                <h2>À propos de nous</h2>
+                <div class="about-info">
+                    <div>
+                        <label>Email :</label>
+                        <span>auximad@auximad.mg</span>
+                    </div>
+                    <div>
+                        <label>Téléphone :</label>
+                        <span>020 22 225 02</span>
+                    </div>
+                    <div>
+                        <label>Site Web :</label>
+                        <span><a href="http://www.auximad.mg" target="_blank">www.auximad.mg</a></span>
+                    </div>
+                    <div>
+                        <label>Siège social :</label>
+                        <span>18 Rue JJ Rabearivelo Antsahavola Antananarivo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </main>
+
+    <script>
+        const carouselImages = document.querySelector('.carousel-images');
+        const images = document.querySelectorAll('.carousel-images img');
+        const prevButton = document.querySelector('.prev');
+        const nextButton = document.querySelector('.next');
+        const indicators = document.querySelectorAll('.carousel-indicators .indicator');
+
+        let currentIndex = 0;
+
+        // Mise à jour de la position et des indicateurs
+        function updateCarousel() {
+            const offset = -currentIndex * 100;
+            carouselImages.style.transform = `translateX(${offset}%)`;
+
+            // Mettre à jour l'indicateur actif
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        // Aller à l'image suivante
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % images.length;
+            updateCarousel();
+        }
+
+        // Aller à l'image précédente
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            updateCarousel();
+        }
+
+        // Navigation avec les indicateurs
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                currentIndex = index;
+                updateCarousel();
+            });
+        });
+
+        // Ajouter des événements aux boutons
+        nextButton.addEventListener('click', nextSlide);
+        prevButton.addEventListener('click', prevSlide);
+
+        // Démarrage automatique du carrousel
+        setInterval(nextSlide, 3000);
+
+        // Initialiser le carrousel
+        updateCarousel();
+        // Basculer les sections
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+                document.getElementById(this.getAttribute('data-section')).classList.add('active');
+            });
+        });
+
+        // Soumission du formulaire par mail
+        document.getElementById('submitButton').addEventListener('click', function () {
+            const formData = {
+                nom: document.getElementById('nom').value,
+                prenom: document.getElementById('prenom').value,
+                adresse: document.getElementById('adresse').value,
+                telephone: document.getElementById('telephone').value,
+                email: document.getElementById('email').value,
+                objet: document.getElementById('objet').value,
+                transport: document.getElementById('transport').value
+            };
+
+            const toEmail = prompt("Entrez l'adresse e-mail pour envoyer la commande :", "auximad@auximad.mg");
+
+            if (toEmail) {
+                const subject = encodeURIComponent(`Commande de ${formData.nom} ${formData.prenom}`);
+                const body = encodeURIComponent(
+                    `Nom: ${formData.nom}\nPrénom: ${formData.prenom}\nAdresse: ${formData.adresse}\nTéléphone: ${formData.telephone}\nEmail: ${formData.email}\nObjet: ${formData.objet}\nMode de Transport: ${formData.transport}`
+                );
+                window.location.href = `mailto:${toEmail}?subject=${subject}&body=${body}`;
+            }
+        });
+    </script>
+</body>
+</html>
